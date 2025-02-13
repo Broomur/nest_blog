@@ -1,10 +1,10 @@
 import {
-	Column,
 	CreateDateColumn,
 	Entity,
 	JoinColumn,
 	OneToMany,
 	OneToOne,
+	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
 import { ArticleModel } from '../article.model/article.model';
@@ -12,7 +12,7 @@ import { UserModel } from '../user.model/user.model';
 
 @Entity('owners')
 export class OwnerModel {
-  @Column()
+  @PrimaryGeneratedColumn()
   	id: number;
 
   @CreateDateColumn({

@@ -10,3 +10,5 @@ export interface CommentRepositoryInterface {
 	update(id: string, data: QueryDeepPartialEntity<CommentModel>): Promise<CommentModel | null>;
 	delete(id: string): Promise<boolean>;
 }
+
+export const COMMENT_REPOSITORY_INTERFACE = 'COMMENT_REPOSITORY_INTERFACE';

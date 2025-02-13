@@ -7,3 +7,5 @@ export interface OwnerRepositoryInterface {
 	isOwner(user_id: string): Promise<boolean>;
 	delete(id: string): Promise<boolean>;
 }
+
+export const OWNER_REPOSITORY_INTERFACE = 'OWNER_REPOSITORY_INTERFACE';

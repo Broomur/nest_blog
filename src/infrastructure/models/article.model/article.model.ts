@@ -14,7 +14,7 @@ import { CommentModel } from '../comment.model/comment.model';
 @Entity('articles')
 export class ArticleModel {
 	@PrimaryGeneratedColumn()
-		id: string;
+		id: number;
 
 	@Column({
 		type: 'varchar',

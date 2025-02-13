@@ -10,3 +10,5 @@ export interface UserRepositoryInterface {
 	update(id: string, data: QueryDeepPartialEntity<UserModel>): Promise<UserModel | null>;
 	delete(id: string): Promise<boolean>;
 }
+
+export const USER_REPOSITORY_INTERFACE = 'USER_REPOSITORY_INTERFACE';

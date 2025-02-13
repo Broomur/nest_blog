@@ -1,11 +1,13 @@
-import { ArticleModel } from 'src/infrastructure/models/article.model/article.model';
+import { ArticleEntity } from 'src/domaine/entities/article.entity/article.entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 export interface ArticleRepositoryInterface {
-	create(title: string, content: string, owner_id: string): Promise<ArticleModel>;
-	getById(id: string): Promise<ArticleModel | null>;
-	getAll(): Promise<ArticleModel[]>;
-	getByOwner(owner_id: string): Promise<ArticleModel[]>;
-	update(id: string, data: QueryDeepPartialEntity<ArticleModel>): Promise<ArticleModel | null>;
+	create(title: string, content: string, owner_id: string): Promise<ArticleEntity>;
+	getById(id: string): Promise<ArticleEntity | null>;
+	getAll(): Promise<ArticleEntity[]>;
+	getByOwner(owner_id: string): Promise<ArticleEntity[]>;
+	update(id: string, data: QueryDeepPartialEntity<ArticleEntity>): Promise<ArticleEntity | null>;
 	delete(id: string): Promise<boolean>;
 }
+
+export const ARTICLE_REPOSITORY_INTERFACE = 'ARTICLE_REPOSITORY_INTERFACE';
