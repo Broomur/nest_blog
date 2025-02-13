@@ -1,12 +1,11 @@
-import { UserModel } from 'src/infrastructure/models/user.model/user.model';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { UserEntity } from 'src/domaine/entities/user.entity/user.entity';
 
 export interface UserRepositoryInterface {
-	create(nickname: string, mail: string, password: string): Promise<UserModel>;
-	getById(id: string): Promise<UserModel | null>;
-	getByMail(mail: string): Promise<UserModel | null>;
-	getAll(): Promise<UserModel[]>;
-	update(id: string, data: QueryDeepPartialEntity<UserModel>): Promise<UserModel | null>;
+	create(nickname: string, mail: string, password: string): Promise<UserEntity>;
+	getById(id: string): Promise<UserEntity | null>;
+	getByMail(mail: string): Promise<UserEntity | null>;
+	getAll(): Promise<UserEntity[]>;
+	update(id: string, data: object): Promise<UserEntity | null>;
 	delete(id: string): Promise<boolean>;
 }
 

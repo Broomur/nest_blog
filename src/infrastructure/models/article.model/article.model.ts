@@ -67,5 +67,5 @@ export class ArticleModel {
 			onUpdate: 'CASCADE',
 		}
 	)
-		comments: Comment[];
+		comments: CommentModel[];
 }

@@ -1,5 +1,3 @@
-import { CommentEntity } from '../comment.entity/comment.entity';
-
 export class UserEntity {
 	private readonly _id: number;
 	private _nickname: string;
@@ -7,7 +5,7 @@ export class UserEntity {
 	private _password: string;
 	private readonly _created_at: Date;
 	private readonly _updated_at: Date | null;
-	private _comments: CommentEntity[];
+	private _comments: number[];
 
 	constructor(
 		id: number,
@@ -16,7 +14,7 @@ export class UserEntity {
 		password: string,
 		created_at: Date,
 		updated_at: Date | null,
-		comments: CommentEntity[],
+		comments: number[],
 	) {
 		this._id = id;
 		this.nickname = nickname;
@@ -65,11 +63,11 @@ export class UserEntity {
 		return this._updated_at;
 	}
 
-	get comments(): CommentEntity[] {
+	get comments(): number[] {
 		return this._comments;
 	}
 
-	set comments(comments: CommentEntity[]) {
+	set comments(comments: number[]) {
 		this._comments.push(...comments);
 	}
 }

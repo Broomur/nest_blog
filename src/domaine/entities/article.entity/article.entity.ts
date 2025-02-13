@@ -1,5 +1,3 @@
-import { CommentEntity } from '../comment.entity/comment.entity';
-
 export class ArticleEntity {
 	private readonly _id: number;
 	private _title: string;
@@ -7,7 +5,7 @@ export class ArticleEntity {
 	private readonly _created_at: Date;
 	private readonly _updated_at: Date | null;
 	private readonly _owner_id: number;
-	private _comments: CommentEntity[];
+	private _comments: number[];
 
 	constructor(
 		id: number,
@@ -16,7 +14,7 @@ export class ArticleEntity {
 		created_at: Date,
 		updated_at: Date | null,
 		owner_id: number,
-		comments: CommentEntity[]
+		comments: number[]
 	) {
 		this._id = id;
 		this.title = title;
@@ -60,11 +58,11 @@ export class ArticleEntity {
 		return this._owner_id;
 	}
 
-	get comments(): CommentEntity[] {
+	get comments(): number[] {
 		return this._comments;
 	}
 
-	set comments(comments: CommentEntity[]) {
+	set comments(comments: number[]) {
 		this.comments.push(...comments);
 	}
 }

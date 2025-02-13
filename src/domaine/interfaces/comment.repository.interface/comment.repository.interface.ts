@@ -1,13 +1,12 @@
-import { CommentModel } from 'src/infrastructure/models/comment.model/comment.model';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { CommentEntity } from 'src/domaine/entities/comment.entity/comment.entity';
 
 export interface CommentRepositoryInterface {
-	create(content: string, user_id: string, article_id: string): Promise<CommentModel>;
-	getById(id: string): Promise<CommentModel | null>;
-	getAll(): Promise<CommentModel[]>;
-	getByArticle(article_id: string): Promise<CommentModel[]>;
-	getByUser(user_id: string): Promise<CommentModel[]>;
-	update(id: string, data: QueryDeepPartialEntity<CommentModel>): Promise<CommentModel | null>;
+	create(content: string, user_id: string, article_id: string): Promise<CommentEntity>;
+	getById(id: string): Promise<CommentEntity | null>;
+	getAll(): Promise<CommentEntity[]>;
+	getByArticle(article_id: string): Promise<CommentEntity[]>;
+	getByUser(user_id: string): Promise<CommentEntity[]>;
+	update(id: string, data: object): Promise<CommentEntity | null>;
 	delete(id: string): Promise<boolean>;
 }
 

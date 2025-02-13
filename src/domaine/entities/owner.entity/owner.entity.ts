@@ -1,16 +1,14 @@
-import { ArticleEntity } from '../article.entity/article.entity';
-
 export class OwnerEntity {
 	private readonly _id: number;
 	private readonly _created_at: Date;
 	private readonly _updated_at: Date | null;
-	private _articles: ArticleEntity[];
+	private _articles: number[];
 
 	constructor(
 		id: number,
 		created_at: Date,
 		updated_at: Date | null,
-		articles: ArticleEntity[]
+		articles: number[]
 	) {
 		this._id = id;
 		this._created_at = created_at;
@@ -30,11 +28,11 @@ export class OwnerEntity {
 		return this._updated_at;
 	}
 
-	get articles(): ArticleEntity[] {
+	get articles(): number[] {
 		return this._articles;
 	}
 
-	set articles(articles: ArticleEntity[]) {
+	set articles(articles: number[]) {
 		this._articles.push(...articles);
 	}
 }
