@@ -63,6 +63,7 @@ export class ArticleEntity {
 	}
 
 	set comments(comments: number[]) {
-		this.comments.push(...comments);
+		if (comments.length)
+			this.comments.push(...comments);
 	}
 }
