@@ -6,7 +6,6 @@ export interface UserRepositoryInterface {
 	getById(id: string): Promise<UserModel | null>;
 	getByMail(mail: string): Promise<UserModel | null>;
 	getAll(): Promise<UserModel[]>;
-	verifyPassword(user: UserModel, password: string): Promise<boolean>;
 	update(id: string, data: QueryDeepPartialEntity<UserModel>): Promise<UserModel | null>;
 	delete(id: string): Promise<boolean>;
 }

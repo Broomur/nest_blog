@@ -5,7 +5,7 @@ export class ArticleEntity {
 	private _title: string;
 	private _content: string;
 	private readonly _created_at: Date;
-	private readonly _updated_at: Date;
+	private readonly _updated_at: Date | null;
 	private readonly _owner_id: number;
 	private _comments: CommentEntity[];
 
@@ -14,7 +14,7 @@ export class ArticleEntity {
 		title: string,
 		content: string,
 		created_at: Date,
-		updated_at: Date,
+		updated_at: Date | null,
 		owner_id: number,
 		comments: CommentEntity[]
 	) {
@@ -52,7 +52,7 @@ export class ArticleEntity {
 		return this._created_at;
 	}
 
-	get updated_at(): Date {
+	get updated_at(): Date | null {
 		return this._updated_at;
 	}
 
@@ -65,6 +65,6 @@ export class ArticleEntity {
 	}
 
 	set comments(comments: CommentEntity[]) {
-		this.comments = comments;
+		this.comments.push(...comments);
 	}
 }
