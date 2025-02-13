@@ -1,10 +1,10 @@
 import {
+	Column,
 	CreateDateColumn,
 	Entity,
 	JoinColumn,
 	OneToMany,
 	OneToOne,
-	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
 import { ArticleModel } from '../article.model/article.model';
@@ -12,7 +12,7 @@ import { UserModel } from '../user.model/user.model';
 
 @Entity('owners')
 export class OwnerModel {
-  @PrimaryGeneratedColumn()
+  @Column()
   	id: number;
 
   @CreateDateColumn({
@@ -29,23 +29,23 @@ export class OwnerModel {
   	updated_at: Date;
 
   @OneToMany(
-() => ArticleModel,
-(article) => article.owner,
-{
+  	() => ArticleModel,
+  	(article) => article.owner,
+  	{
   	onDelete: 'CASCADE',
   	onUpdate: 'CASCADE',
-  }
-)
+  	}
+  )
   	articles: ArticleModel[];
 
   @OneToOne(
-() => UserModel,
-(user) => user.owner,
-{
+  	() => UserModel,
+  	(user) => user.owner,
+  	{
   	onDelete: 'CASCADE',
   	onUpdate: 'CASCADE',
-  }
-)
+  	}
+  )
   @JoinColumn({
   	name: 'id',
   })
