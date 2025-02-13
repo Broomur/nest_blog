@@ -4,7 +4,6 @@ import { ArticleEntity } from 'src/domaine/entities/article.entity/article.entit
 import { ArticleRepositoryInterface } from 'src/domaine/interfaces/article.repository.interface/article.repository.interface';
 import { ArticleModel } from 'src/infrastructure/models/article.model/article.model';
 import { Repository } from 'typeorm';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable()
 export class ArticleRepository implements ArticleRepositoryInterface {
@@ -27,7 +26,7 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 			article.created_at,
 			article.updated_at,
 			article.owner_id,
-			article.comments
+			article.comments.map(c => c.id)
 		);
 		return articleEntity;
 	}
@@ -42,7 +41,7 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 				article.created_at,
 				article.updated_at,
 				article.owner_id,
-				article.comments
+				article.comments.map(c => c.id)
 			);
 			return articleEntity;
 		}
@@ -60,7 +59,7 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 				article.created_at,
 				article.updated_at,
 				article.owner_id,
-				article.comments
+				article.comments.map(c => c.id)
 			));
 		}
 		return articlesEntities;
@@ -79,14 +78,14 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 				article.created_at,
 				article.updated_at,
 				article.owner_id,
-				article.comments
+				article.comments.map(c => c.id)
 			));
 		}
 		return articlesEntities;
 	}
 
 	async update(
-		id: string, data: QueryDeepPartialEntity<ArticleEntity>
+		id: string, data: object
 	): Promise<ArticleEntity | null> {
 		await this.articleRepository.update(
 			{ id: parseInt(id) },
@@ -101,7 +100,7 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 				article.created_at,
 				article.updated_at,
 				article.owner_id,
-				article.comments
+				article.comments.map(c => c.id)
 			);
 			return articleEntity;
 		}
