@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ArticleEntity } from 'src/domaine/entities/article.entity/article.entity';
-import { ArticleRepositoryInterface } from 'src/domaine/interfaces/article.repository.interface/article.repository.interface';
-import { ArticleModel } from 'src/infrastructure/models/article.model/article.model';
+import { ArticleEntity } from '../../../domaine/entities/article.entity/article.entity';
+import { ArticleRepositoryInterface } from '../../../domaine/interfaces/article.repository.interface/article.repository.interface';
+import { ArticleModel } from '../../models/article.model/article.model';
 import { Repository } from 'typeorm';
 
 @Injectable()
