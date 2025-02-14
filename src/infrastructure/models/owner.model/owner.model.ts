@@ -12,42 +12,43 @@ import { UserModel } from '../user.model/user.model';
 
 @Entity('owners')
 export class OwnerModel {
-  @PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn()
   	id: number;
 
-  @CreateDateColumn({
-  	type: 'timestamp',
-  	default: () => 'CURRENT_TIMESTAMP(6)',
-  })
+	@CreateDateColumn({
+		type: 'timestamp',
+		default: () => 'CURRENT_TIMESTAMP(6)',
+	})
   	created_at: Date;
 
-  @UpdateDateColumn({
-  	type: 'timestamp',
-  	default: () => 'CURRENT_TIMESTAMP(6)',
-  	onUpdate: 'CURRENT_TIMESTAMP(6)',
-  })
+	@UpdateDateColumn({
+		type: 'timestamp',
+		default: () => 'CURRENT_TIMESTAMP(6)',
+		onUpdate: 'CURRENT_TIMESTAMP(6)',
+	})
   	updated_at: Date;
 
-  @OneToMany(
-  	() => ArticleModel,
-  	(article) => article.owner,
-  	{
-  	onDelete: 'CASCADE',
-  	onUpdate: 'CASCADE',
-  	}
-  )
+	@OneToMany(
+		() => ArticleModel,
+		(article) => article.owner,
+		{
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE',
+			eager: true
+		}
+	)
   	articles: ArticleModel[];
 
-  @OneToOne(
-  	() => UserModel,
-  	(user) => user.owner,
-  	{
-  	onDelete: 'CASCADE',
-  	onUpdate: 'CASCADE',
-  	}
-  )
-  @JoinColumn({
-  	name: 'id',
-  })
+	@OneToOne(
+		() => UserModel,
+		(user) => user.owner,
+		{
+  			onDelete: 'CASCADE',
+  			onUpdate: 'CASCADE',
+  		}
+  	)
+  	@JoinColumn({
+  		name: 'id',
+  	})
   	user: UserModel;
 }

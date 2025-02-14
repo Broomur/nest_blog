@@ -67,6 +67,7 @@ export class UserModel {
 		{
 			onDelete: 'CASCADE',
 			onUpdate: 'CASCADE',
+			eager: true
 		}
 	)
   	comments: CommentModel[];

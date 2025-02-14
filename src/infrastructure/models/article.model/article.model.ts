@@ -65,6 +65,7 @@ export class ArticleModel {
 		{
 			onDelete: 'CASCADE',
 			onUpdate: 'CASCADE',
+			eager: true,
 		}
 	)
 		comments: CommentModel[];
