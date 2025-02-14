@@ -1,7 +1,21 @@
 import { OwnerEntity } from './owner.entity';
 
-describe('OwnerEntity', () => {
-  it('should be defined', () => {
-    expect(new OwnerEntity()).toBeDefined();
-  });
-});
+describe(
+	'OwnerEntity',
+	() => {
+		const ownerEntity = new OwnerEntity(
+			1,
+			1,
+			new Date(),
+			new Date(),
+			[]
+		);
+
+		it(
+			'should be defined',
+			() => {
+				expect(ownerEntity).toBeDefined();
+			}
+		);
+	}
+);
