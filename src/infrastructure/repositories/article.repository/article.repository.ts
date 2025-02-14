@@ -11,7 +11,7 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 
 
 	async create(
-		title: string, content: string, owner_id: string
+		title: string, content: string, owner_id: number
 	): Promise<ArticleEntity> {
 		const article = this.articleRepository.create({
 			title: title,
@@ -31,8 +31,8 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 		return articleEntity;
 	}
 
-	async getById(id: string) : Promise<ArticleEntity | null> {
-		const article = await this.articleRepository.findOneBy({ id: parseInt(id) });
+	async getById(id: number) : Promise<ArticleEntity | null> {
+		const article = await this.articleRepository.findOneBy({ id: id });
 		if (article) {
 			const articleEntity = new ArticleEntity(
 				article.id,
@@ -65,7 +65,7 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 		return articlesEntities;
 	}
 
-	async getByOwner(owner_id: string): Promise<ArticleEntity[]> {
+	async getByOwner(owner_id: number): Promise<ArticleEntity[]> {
 		const articles = await this.articleRepository.findBy({
 			owner_id: Number(owner_id)
 		});
@@ -85,13 +85,13 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 	}
 
 	async update(
-		id: string, data: object
+		id: number, data: object
 	): Promise<ArticleEntity | null> {
 		await this.articleRepository.update(
-			{ id: parseInt(id) },
+			{ id: id },
 			data
 		);
-		const article = await this.articleRepository.findOneBy({id: parseInt(id) });
+		const article = await this.articleRepository.findOneBy({id: id });
 		if (article) {
 			const articleEntity = new ArticleEntity(
 				article.id,
@@ -107,12 +107,8 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 		return null;
 	}
 
-	async delete(id: string): Promise<boolean> {
-		try {
-			const result = await this.articleRepository.delete({ id: parseInt(id) });
-			return result.affected !== undefined && result.affected > 0;
-		} catch {
-			return false;
-		}
+	async delete(id: number): Promise<boolean> {
+		const result = await this.articleRepository.delete({ id: id });
+		return result.affected !== undefined && result.affected > 0;
 	}
 }

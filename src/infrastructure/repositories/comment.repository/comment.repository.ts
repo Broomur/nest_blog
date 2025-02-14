@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CommentEntity } from 'src/domaine/entities/comment.entity/comment.entity';
-import { CommentRepositoryInterface } from 'src/domaine/interfaces/comment.repository.interface/comment.repository.interface';
-import { CommentModel } from 'src/infrastructure/models/comment.model/comment.model';
+import { CommentEntity } from '../../../domaine/entities/comment.entity/comment.entity';
+import { CommentRepositoryInterface } from '../../../domaine/interfaces/comment.repository.interface/comment.repository.interface';
+import { CommentModel } from '../../models/comment.model/comment.model';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -10,12 +10,12 @@ export class CommentRepository implements CommentRepositoryInterface {
 	constructor(@InjectRepository(CommentModel) private commentRepository: Repository<CommentModel>) {}
 
 	async create(
-		content: string, user_id: string, article_id: string
+		content: string, user_id: number, article_id: number
 	): Promise<CommentEntity> {
 		const comment = this.commentRepository.create({
 			content: content,
-			user_id: Number(user_id),
-			article_id: Number(article_id)
+			user_id: user_id,
+			article_id: article_id
 		});
 		await this.commentRepository.save(comment);
 		return new CommentEntity(
@@ -28,16 +28,18 @@ export class CommentRepository implements CommentRepositoryInterface {
 		);
 	}
 
-	async getById(id: string): Promise<CommentEntity | null> {
-		const comment = await this.commentRepository.findOneBy({ id: Number(id) });
-		return new CommentEntity(
-			comment.id,
-			comment.content,
-			comment.created_at,
-			comment.updated_at,
-			comment.user_id,
-			comment.article_id
-		);
+	async getById(id: number): Promise<CommentEntity | null> {
+		const comment = await this.commentRepository.findOneBy({ id: id });
+		if (comment)
+			return new CommentEntity(
+				comment.id,
+				comment.content,
+				comment.created_at,
+				comment.updated_at,
+				comment.user_id,
+				comment.article_id
+			);
+		return null;
 	}
 
 	async getAll(): Promise<CommentEntity[]> {
@@ -55,9 +57,9 @@ export class CommentRepository implements CommentRepositoryInterface {
 		return commentsEntities;
 	}
 
-	async getByArticle(article_id: string): Promise<CommentEntity[]> {
+	async getByArticle(article_id: number): Promise<CommentEntity[]> {
 		const comments = await this.commentRepository.findBy({
-			article_id: Number(article_id)
+			article_id: article_id
 		});
 		const commentsEntities = [];
 		for (const comment of comments)
@@ -72,9 +74,9 @@ export class CommentRepository implements CommentRepositoryInterface {
 		return commentsEntities;
 	}
 
-	async getByUser(user_id: string): Promise<CommentEntity[]> {
+	async getByUser(user_id: number): Promise<CommentEntity[]> {
 		const comments = await this.commentRepository.findBy({
-			user_id: Number(user_id)
+			user_id: user_id
 		});
 		const commentsEntities = [];
 		for (const comment of comments)
@@ -90,13 +92,13 @@ export class CommentRepository implements CommentRepositoryInterface {
 	}
 
 	async update(
-		id: string, data: object
+		id: number, data: object
 	): Promise<CommentEntity | null> {
 		await this.commentRepository.update(
-			{ id: Number(id) },
+			{ id: id },
 			data
 		);
-		const comment = await this.commentRepository.findOneBy({ id: Number(id) });
+		const comment = await this.commentRepository.findOneBy({ id: id });
 		return new CommentEntity(
 			comment.id,
 			comment.content,
@@ -107,12 +109,8 @@ export class CommentRepository implements CommentRepositoryInterface {
 		);
 	}
 
-	async delete(id: string): Promise<boolean> {
-		try {
-			const result = await this.commentRepository.delete({ id: Number(id) });
-			return result.affected !== undefined && result.affected > 0;
-		} catch {
-			return false;
-		}
+	async delete(id: number): Promise<boolean> {
+		const result = await this.commentRepository.delete({ id: id });
+		return result.affected !== undefined && result.affected > 0;
 	}
 }

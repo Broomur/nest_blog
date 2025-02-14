@@ -25,12 +25,12 @@ export class UserRepository implements UserRepositoryInterface {
 			user.password,
 			user.created_at,
 			user.updated_at,
-			user.comments.map(c => c.id)
+			(user.comments ?? []).map(c => c.id)
 		);
 	}
 
-	async getById(id: string): Promise<UserEntity | null> {
-		const user = await this.userRepository.findOneBy({ id: Number(id) });
+	async getById(id: number): Promise<UserEntity | null> {
+		const user = await this.userRepository.findOneBy({ id: id });
 		if (user)
 			return new UserEntity(
 				user.id,
@@ -39,7 +39,7 @@ export class UserRepository implements UserRepositoryInterface {
 				user.password,
 				user.created_at,
 				user.updated_at,
-				user.comments.map(c => c.id)
+				(user.comments ?? []).map(c => c.id)
 			);
 		return null;
 	}
@@ -54,7 +54,7 @@ export class UserRepository implements UserRepositoryInterface {
 				user.password,
 				user.created_at,
 				user.updated_at,
-				user.comments.map(c => c.id)
+				(user.comments ?? []).map(c => c.id)
 			);
 		return null;
 	}
@@ -70,19 +70,19 @@ export class UserRepository implements UserRepositoryInterface {
 				user.password,
 				user.created_at,
 				user.updated_at,
-				user.comments.map(c => c.id)
+				(user.comments ?? []).map(c => c.id)
 			));
 		return usersEntities;
 	}
 
 	async update(
-		id: string, data: object
+		id: number, data: object
 	): Promise<UserEntity | null> {
 		await this.userRepository.update(
-			{ id: Number(id) },
+			{ id: id },
 			data
 		);
-		const user = await this.userRepository.findOneBy({ id: Number(id) });
+		const user = await this.userRepository.findOneBy({ id: id });
 		return new UserEntity(
 			user.id,
 			user.nickname,
@@ -90,13 +90,13 @@ export class UserRepository implements UserRepositoryInterface {
 			user.password,
 			user.created_at,
 			user.updated_at,
-			user.comments.map(c => c.id)
+			(user.comments ?? []).map(c => c.id)
 		);
 	}
 
-	async delete(id: string): Promise<boolean> {
+	async delete(id: number): Promise<boolean> {
 		try {
-			const result = await this.userRepository.delete({ id: Number(id) });
+			const result = await this.userRepository.delete({ id: id });
 			return result.affected !== undefined && result.affected > 0;
 		} catch {
 			return false;

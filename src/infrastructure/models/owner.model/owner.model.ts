@@ -1,4 +1,5 @@
 import {
+	Column,
 	CreateDateColumn,
 	Entity,
 	JoinColumn,
@@ -39,6 +40,12 @@ export class OwnerModel {
 	)
   	articles: ArticleModel[];
 
+	@Column({
+		type: 'int',
+		nullable: false
+	})
+		user_id: number;
+
 	@OneToOne(
 		() => UserModel,
 		(user) => user.owner,
@@ -48,7 +55,7 @@ export class OwnerModel {
   		}
   	)
   	@JoinColumn({
-  		name: 'id',
+  		name: 'user_id',
   	})
   	user: UserModel;
 }
