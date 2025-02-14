@@ -68,6 +68,7 @@ export class UserEntity {
 	}
 
 	set comments(comments: number[]) {
-		this._comments.push(...comments);
+		if (comments.length)
+			this._comments.push(...comments);
 	}
 }

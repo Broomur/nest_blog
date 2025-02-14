@@ -7,6 +7,8 @@ import { CommentModel } from 'src/infrastructure/models/comment.model/comment.mo
 import { ArticleModel } from 'src/infrastructure/models/article.model/article.model';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApplicationModule } from 'src/application/application.module';
+import { UserController } from './user/user.controller';
+import { UserService } from 'src/application/user/user.service';
 
 @Module({
 	imports: [
@@ -18,9 +20,10 @@ import { ApplicationModule } from 'src/application/application.module';
 			UserModel
 		])
 	],
-	controllers: [ArticleController],
+	controllers: [ArticleController, UserController],
 	providers: [
-		ArticleService
+		ArticleService,
+		UserService
 	]
 })
 export class PresentationModule {}

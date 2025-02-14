@@ -13,6 +13,7 @@ import { ArticleModel } from 'src/infrastructure/models/article.model/article.mo
 import { CommentModel } from 'src/infrastructure/models/comment.model/comment.model';
 import { OwnerModel } from 'src/infrastructure/models/owner.model/owner.model';
 import { UserModel } from 'src/infrastructure/models/user.model/user.model';
+import { UserService } from './user/user.service';
 
 @Module({
 	imports: [
@@ -40,7 +41,8 @@ import { UserModel } from 'src/infrastructure/models/user.model/user.model';
 		{
 			provide: USER_REPOSITORY_INTERFACE,
 			useClass: UserRepository
-		}
+		},
+		UserService
 	],
 	exports: [
 		ARTICLE_REPOSITORY_INTERFACE,

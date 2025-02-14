@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, HttpCode, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Post, Query } from '@nestjs/common';
 import { ArticleService } from 'src/application/article/article.service';
-import { ArticleDto } from 'src/application/article/dto/article.dto/article.dto';
+import { ArticleDto } from 'src/application/article/article.dto/article.dto';
 
 @Controller('articles')
 export class ArticleController {
@@ -8,7 +8,7 @@ export class ArticleController {
 
 	@Get()
 	@HttpCode(200)
-	async getAll(): Promise<object[]> {
+	async getAll(): Promise<ArticleDto[]> {
 		return this.articleService.getAll();
 	}
 
@@ -20,7 +20,13 @@ export class ArticleController {
 
 	@Delete()
 	@HttpCode(204)
-	async delete(@Query('id') id: string): Promise<boolean> {
-		return await this.articleService.delete(id);
+	async delete(@Query('id') id: number): Promise<boolean> {
+		const result = await this.articleService.delete(id);
+		if (!result)
+			throw new HttpException(
+				'Not found',
+				HttpStatus.NOT_FOUND
+			);
+		return result;
 	}
 }
