@@ -26,7 +26,7 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 			article.created_at,
 			article.updated_at,
 			article.owner_id,
-			article.comments.map(c => c.id)
+			(article.comments ?? []).map(c => c.id)
 		);
 		return articleEntity;
 	}
