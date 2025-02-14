@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from 'src/domaine/entities/user.entity/user.entity';
-import { UserRepositoryInterface } from 'src/domaine/interfaces/user.repository.interface/user.repository.interface';
-import { UserModel } from 'src/infrastructure/models/user.model/user.model';
+import { UserEntity } from '../../../domaine/entities/user.entity/user.entity';
+import { UserRepositoryInterface } from '../../../domaine/interfaces/user.repository.interface/user.repository.interface';
+import { UserModel } from '../../models/user.model/user.model';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -95,11 +95,7 @@ export class UserRepository implements UserRepositoryInterface {
 	}
 
 	async delete(id: number): Promise<boolean> {
-		try {
-			const result = await this.userRepository.delete({ id: id });
-			return result.affected !== undefined && result.affected > 0;
-		} catch {
-			return false;
-		}
+		const result = await this.userRepository.delete({ id: id });
+		return result.affected !== undefined && result.affected > 0;
 	}
 }

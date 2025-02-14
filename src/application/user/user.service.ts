@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { USER_REPOSITORY_INTERFACE, UserRepositoryInterface } from 'src/domaine/interfaces/user.repository.interface/user.repository.interface';
 import { UserDto } from './user.dto/user.dto';
 import { plainToInstance } from 'class-transformer';
-import { PasswordHandler } from './utils/password.handler/password.handler';
+import { PasswordHandler } from '../password.handler/password.handler';
 import { QueryFailedError } from 'typeorm';
 
 @Injectable()

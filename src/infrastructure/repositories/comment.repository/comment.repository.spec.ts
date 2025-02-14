@@ -30,7 +30,7 @@ describe(
 
 		beforeEach(async () => {
 			await manager.query(`INSERT INTO users (nickname, mail, password) VALUES ('test_user', 'test@mail.io', 'test_password');`);
-			await manager.query(`INSERT INTO owners (id) VALUES (1);`);
+			await manager.query(`INSERT INTO owners (user_id) VALUES (1);`);
 			await manager.query(`INSERT INTO articles (title, content, owner_id) VALUES ('test', 'test', 1)`);
 			await manager.query(`INSERT INTO comments (content, user_id, article_id) VALUES ('test', 1, 1);`);
 		});

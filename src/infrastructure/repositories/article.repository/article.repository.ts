@@ -16,7 +16,7 @@ export class ArticleRepository implements ArticleRepositoryInterface {
 		const article = this.articleRepository.create({
 			title: title,
 			content: content,
-			owner: { id: Number(owner_id) }
+			owner: { id: owner_id}
 		});
 		await this.articleRepository.save(article);
 		const articleEntity = new ArticleEntity(

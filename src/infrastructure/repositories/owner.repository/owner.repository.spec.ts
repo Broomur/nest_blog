@@ -37,9 +37,8 @@ describe(
 		afterEach(async () => {
 			const tables = await manager.query(`SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';`);
 
-			for (const table of tables) {
+			for (const table of tables)
 				await manager.query(`TRUNCATE TABLE "${table.table_name}" RESTART IDENTITY CASCADE;`);
-			}
 		});
 
 		it(

@@ -14,6 +14,7 @@ import { CommentModel } from 'src/infrastructure/models/comment.model/comment.mo
 import { OwnerModel } from 'src/infrastructure/models/owner.model/owner.model';
 import { UserModel } from 'src/infrastructure/models/user.model/user.model';
 import { UserService } from './user/user.service';
+import { AuthService } from './auth/auth.service';
 
 @Module({
 	imports: [
@@ -42,7 +43,8 @@ import { UserService } from './user/user.service';
 			provide: USER_REPOSITORY_INTERFACE,
 			useClass: UserRepository
 		},
-		UserService
+		UserService,
+		AuthService
 	],
 	exports: [
 		ARTICLE_REPOSITORY_INTERFACE,

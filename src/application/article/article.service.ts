@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ARTICLE_REPOSITORY_INTERFACE, ArticleRepositoryInterface } from 'src/domaine/interfaces/article.repository.interface/article.repository.interface';
-import { ArticleDto } from './article.dto/article.dto';
+import { ArticleDto, CreateArticleDto, UpdateArticleDto } from './article.dto/article.dto';
 import { plainToInstance } from 'class-transformer';
 
 @Injectable()
@@ -16,11 +16,27 @@ export class ArticleService {
 		);
 	}
 
-	async create(articleDto: ArticleDto): Promise<ArticleDto> {
+	async create(articleDto: CreateArticleDto): Promise<ArticleDto> {
 		const article = await this.articleRepository.create(
 			articleDto.title,
 			articleDto.content,
 			articleDto.owner_id
+		);
+		return plainToInstance(
+			ArticleDto,
+			article,
+			{ excludeExtraneousValues: true }
+		);
+	}
+
+	async update(articleDto: UpdateArticleDto): Promise<ArticleDto> {
+		const { title, content } = plainToInstance(
+			UpdateArticleDto,
+			articleDto
+		);
+		const article = await this.articleRepository.update(
+			articleDto.id,
+			{ title, content }
 		);
 		return plainToInstance(
 			ArticleDto,

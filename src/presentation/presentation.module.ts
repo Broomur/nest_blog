@@ -9,6 +9,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApplicationModule } from 'src/application/application.module';
 import { UserController } from './user/user.controller';
 import { UserService } from 'src/application/user/user.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from 'src/application/auth/auth.service';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './auth/constant';
 
 @Module({
 	imports: [
@@ -18,10 +22,16 @@ import { UserService } from 'src/application/user/user.service';
 			CommentModel,
 			OwnerModel,
 			UserModel
-		])
+		]),
+		JwtModule.register({
+			global: true,
+			secret: jwtConstants.secret,
+			signOptions: { expiresIn: '30min' }
+		})
 	],
-	controllers: [ArticleController, UserController],
+	controllers: [ArticleController, UserController, AuthController],
 	providers: [
+		AuthService,
 		ArticleService,
 		UserService
 	]
